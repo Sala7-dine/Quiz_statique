@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSQuizStarter - Quiz Interactif</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">JSQuizStarter</h1>
+    </header>
+
+    <main class="main-content">
+
+        <div class="welcome-section">
+            <h2 class="title">Testez vos connaissances !</h2>
+            <p class="description">
+                Bienvenue dans JSQuizStarter, votre quiz interactif pour apprendre de manière ludique. 
+                Répondez aux questions et découvrez votre score à la fin !
+            </p>
+            <button class="start-button">Commencer le quiz</button>
+        </div>
+
+
+        <div class="quiz-container">
+            <div>
+                <h1>JSQuizStarter</h1>
+                <div class="timer">Temps : <span id="timer">00:00</span></div>
+                <div class="question-counter">Question <span id="current-question">1</span> / 10</div>
+            </div>
+            <main>
+                <div class="question">
+                    <h2 id="question-text" class="question-text"></h2>
+                </div>
+                <div class="answers"></div>
+            </main>
+            <footer>
+                <button id="next-btn" class="btn">Suivant</button>
+
+                <button id="submit-btn" class="btn" style="display: none;">Valider</button>
+                <button id="restart-btn" class="btn" style="display: none;">Recommencer</button>
+
+            </footer>
+            <div id="result" class="result" style="display: none;">
+                <h3>Votre score : <span id="score">0</span> / 10</h3>
+                <p id="feedback">Excellent !</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

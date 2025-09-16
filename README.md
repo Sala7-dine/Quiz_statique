@@ -16,12 +16,6 @@ Ce projet est développé dans le cadre de la spécialisation **MERN Stack - You
 
 ---
 
-## 🖼️ Aperçu
-
-📸 *(Ajoute ici une capture d’écran de ton projet quand il est prêt)*
-
----
-
 ## 🛠️ Technologies utilisées
 
 | Technologie          | Description                                            |
@@ -34,18 +28,24 @@ Ce projet est développé dans le cadre de la spécialisation **MERN Stack - You
 
 ## 📂 Structure du projet
 
+
 📦 JSQuizStarter
+
+```sh
 ┣ 📜 index.html   → Structure du quiz
 ┣ 📜 style.css    → Styles et mise en page
 ┣ 📜 script.js    → Logique et interactivité
 ┗ 📜 README.md    → Documentation
+```
 
 ---
 
 ## ⚡ Installation & Utilisation
 
 1. **Cloner** le repo :
-   `git clone https://github.com/ton-utilisateur/JSQuizStarter.git`
+```sh
+   git clone https://github.com/Sala7-dine/JSQuizStarter.git
+```
 
 2. **Ouvrir** le fichier `index.html` dans ton navigateur.
 
@@ -55,14 +55,8 @@ Ce projet est développé dans le cadre de la spécialisation **MERN Stack - You
 
 ## 📅 Modalités pédagogiques
 
-* **Début :** 16/09/2024
-* **Deadline :** 17/09/2024 (fin de journée)
-
----
-
-## 📝 Auteur
-
-👤 Développé par : **\[Ton Nom]** – Étudiant(e) à **YouCode**
+* **Début :** 16/09/2025
+* **Deadline :** 17/09/2025 (fin de journée)
 
 ---
 
