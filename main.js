@@ -98,8 +98,6 @@ const HandleQuiz = () => {
     answers.innerHTML = questionTemplate(data[actualeQuiz]);
     questionText.innerHTML = data[actualeQuiz].question;
 
-
-
 }
 
 const questionTemplate = (qs) => {
