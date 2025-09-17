@@ -176,6 +176,16 @@ footer {
     color: #555;
 }
 
+.correct {
+    background-color: #4caf50;
+    color: white;
+}
+
+.incorrect {
+    background-color: #f44336;
+    color: white;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
