@@ -28,24 +28,62 @@ let timerEl = document.querySelector("#timer");
 let questionCounter = document.querySelector(".question-counter");
 let nextBtn = document.querySelector("#next-btn");
 let currentQuestion = document.querySelector("#current-question");
-
-startBtn.addEventListener("click", () => {
-    welcomeSection.style.display = "none";
-    quizSection.style.display = "block";
-    actualeQuiz = 0;
-    answersQuiz = [];
-    HandleQuiz();
-});
+let modal = document.getElementById("modal");
+let close = document.querySelector(".close");
+let pseudo = document.querySelector(".pseudo");
 
 let actualeQuiz = 0;
 let answersQuiz = [];
 let timeLeft = 5;
 let timerInterval = null;
+let pseudoArray = [];
+
+if (localStorage.getItem("pseudo")) {
+    pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
+}
+
+startBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+});
+
+
+const Pseudo = () => {
+
+
+    if (pseudoArray.includes(pseudo.value)){
+        document.querySelector(".error").textContent = "le nom deja existe";
+        return;
+    }
+
+    modal.style.display = "none";
+    pseudoArray.push(pseudo.value);
+
+    localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
+
+    welcomeSection.style.display = "none";
+    quizSection.style.display = "block";
+    actualeQuiz = 0;
+    answersQuiz = [];
+
+
+    HandleQuiz();
+}
+
+close.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 
 
 const HandleQuiz = () => {
-    if (actualeQuiz >= data.length) {
 
+    if (actualeQuiz >= data.length) {
         answersQuiz.innerHTML = "<h2>Quiz Termine</h2>"
 
         console.log(answersQuiz);
