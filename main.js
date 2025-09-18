@@ -1,10 +1,52 @@
-const data = [
+const jsdata = [
     {
     type: 'qcm',
     question: "Quelle méthode JavaScript ajoute un ou plusieurs éléments à la fin d'un tableau ?",
     options: ['push()', 'pop()', 'shift()', 'unshift()'],
     correctAnswer: 3,
     explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
+    }, {
+        type: 'qcm',
+        question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
+        options: ['pop()', 'shift()', 'slice()', 'splice()'],
+        correctAnswer: 0,
+        explanation: "pop() supprime le dernier élément d'un tableau et retourne cet élément."
+    }, {
+        type: 'qcm',
+        question: "Quelle structure permet de déclarer une variable dont la valeur ne change pas ?",
+        options: ['let', 'const', 'var', 'static'],
+        correctAnswer: 1,
+        explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
+}];
+
+const htmldata = [
+    {
+        type: 'qcm',
+        question: "Quelle méthode html ajoute un ou plusieurs éléments à la fin d'un tableau ?",
+        options: ['push()', 'pop()', 'shift()', 'unshift()'],
+        correctAnswer: 3,
+        explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
+    }, {
+        type: 'qcm',
+        question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
+        options: ['pop()', 'shift()', 'slice()', 'splice()'],
+        correctAnswer: 0,
+        explanation: "pop() supprime le dernier élément d'un tableau et retourne cet élément."
+    }, {
+        type: 'qcm',
+        question: "Quelle structure permet de déclarer une variable dont la valeur ne change pas ?",
+        options: ['let', 'const', 'var', 'static'],
+        correctAnswer: 1,
+        explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
+    }];
+
+const cssdata = [
+    {
+        type: 'qcm',
+        question: "Quelle méthode css ajoute un ou plusieurs éléments à la fin d'un tableau ?",
+        options: ['push()', 'pop()', 'shift()', 'unshift()'],
+        correctAnswer: 3,
+        explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
     }, {
         type: 'qcm',
         question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
@@ -31,12 +73,37 @@ let currentQuestion = document.querySelector("#current-question");
 let modal = document.getElementById("modal");
 let close = document.querySelector(".close");
 let pseudo = document.querySelector(".pseudo");
+let btnChoice = document.querySelectorAll(".btn-choice");
+let cardsContainer = document.querySelector(".cards-container");
 
 let actualeQuiz = 0;
 let answersQuiz = [];
 let timeLeft = 5;
 let timerInterval = null;
 let pseudoArray = [];
+let theme = 0;
+
+let data = [];
+
+btnChoice.forEach(btn => {
+    btn.addEventListener("click", () => {
+        theme = parseInt(btn.value);
+
+        if (theme === 1) {
+            data = jsdata;
+        }else if (theme === 2) {
+            data = htmldata;
+        }else if (theme === 3) {
+            data = cssdata;
+        }
+
+        cardsContainer.style.display = "none";
+
+        modal.style.display = "flex";
+
+    });
+});
+
 
 if (localStorage.getItem("pseudo")) {
     pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
@@ -49,8 +116,11 @@ startBtn.addEventListener("click", () => {
 
 const Pseudo = () => {
 
-
     if (pseudoArray.includes(pseudo.value)){
+        if(pseudo.value === ""){
+            document.querySelector(".error").textContent = "le nom ne peut etre vide";
+            return;
+        }
         document.querySelector(".error").textContent = "le nom deja existe";
         return;
     }
@@ -64,7 +134,6 @@ const Pseudo = () => {
     quizSection.style.display = "block";
     actualeQuiz = 0;
     answersQuiz = [];
-
 
     HandleQuiz();
 }

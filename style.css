@@ -33,6 +33,7 @@ body {
 }
 
 .welcome-section {
+    display: none;
   background-color: white;
   padding: 3rem;
   border-radius: 10px;
@@ -102,8 +103,6 @@ body {
     outline: none;
 }
 
-
-
 .modal-content .submit-btn {
     background-color: dodgerblue;
     color: white;
@@ -144,6 +143,55 @@ body {
 
 .quiz-section {
     display: none;
+}
+
+/* Card Container */
+
+.cards-container {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.card button {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.card button:hover {
+    background: #43a047;
 }
 
 .quiz-container {
