@@ -61,6 +61,8 @@ const cssdata = [
         explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
     }];
 
+
+
 let welcomeSection = document.querySelector(".welcome-section");
 let startBtn = document.querySelector(".start-button");
 let quizSection = document.querySelector(".quiz-container");
@@ -75,6 +77,8 @@ let close = document.querySelector(".close");
 let pseudo = document.querySelector(".pseudo");
 let btnChoice = document.querySelectorAll(".btn-choice");
 let cardsContainer = document.querySelector(".cards-container");
+let result = document.querySelector(".result");
+
 
 let actualeQuiz = 0;
 let answersQuiz = [];
@@ -149,13 +153,22 @@ window.onclick = function(event) {
 }
 
 
-
 const HandleQuiz = () => {
 
     if (actualeQuiz >= data.length) {
-        answersQuiz.innerHTML = "<h2>Quiz Termine</h2>"
 
-        console.log(answersQuiz);
+        quizSection.style.display = "none";
+
+
+        result.style = "block";
+
+        answersQuiz.forEach((elem , i) => {
+
+            let div = anwersQuestionTemplate(elem , i);
+            result.innerHTML += div;
+
+        });
+
         return;
     }
 
@@ -167,6 +180,38 @@ const HandleQuiz = () => {
     startTimer();
 };
 
+
+const anwersQuestionTemplate = (elem, i) => {
+
+    return `<main class="ans">
+                <div class="question">
+                    <h2 class="question-text">${elem.question}</h2>
+                </div>
+                <div class="answers">${questionTemplates(data[i] , elem.correctAnswer , elem.choix)}</div>
+            </main>`
+};
+
+
+const questionTemplates = (qs, cor, cors) => {
+    return qs.options.map((opt, i) => {
+        let bg = "white";
+        if (cor === cors && i === cor) {
+            bg = "green";
+        } else if (cor !== cors) {
+            if (i === cors) {
+                bg = "red";
+            } else if (i === cor) {
+                bg = "green";
+            }
+        }
+
+        return `
+          <label class="answer-option" style="background:${bg}">
+            ${opt}
+          </label>`;
+
+    }).join("");
+};
 
 const questionTemplate = (qs) => {
     return qs.options.map((opt, i) => `
@@ -199,6 +244,7 @@ const saveAnswer = (choice, timeSpent) => {
     answersQuiz.push({
         question: data[actualeQuiz].question,
         choix: Number(choice),
+        options : data[actualeQuiz].options,
         correctAnswer: data[actualeQuiz].correctAnswer,
         tempsPasse: timeSpent
     });
