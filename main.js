@@ -61,8 +61,6 @@ const cssdata = [
         explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
     }];
 
-
-
 let welcomeSection = document.querySelector(".welcome-section");
 let startBtn = document.querySelector(".start-button");
 let quizSection = document.querySelector(".quiz-container");
@@ -86,7 +84,7 @@ let timeLeft = 5;
 let timerInterval = null;
 let pseudoArray = [];
 let theme = 0;
-
+let score = 0;
 let data = [];
 
 btnChoice.forEach(btn => {
@@ -162,12 +160,21 @@ const HandleQuiz = () => {
 
         result.style = "block";
 
+
+
         answersQuiz.forEach((elem , i) => {
 
             let div = anwersQuestionTemplate(elem , i);
             result.innerHTML += div;
 
+            if(elem.choix === data[i].correctAnswer){
+                score++;
+            }
+
+
         });
+
+        document.querySelector("#score").textContent = score;
 
         return;
     }
@@ -193,6 +200,9 @@ const anwersQuestionTemplate = (elem, i) => {
 
 
 const questionTemplates = (qs, cor, cors) => {
+
+
+
     return qs.options.map((opt, i) => {
         let bg = "white";
         if (cor === cors && i === cor) {
@@ -202,6 +212,8 @@ const questionTemplates = (qs, cor, cors) => {
                 bg = "red";
             } else if (i === cor) {
                 bg = "green";
+            } else if (cors === -1) {
+                bg = "yellow";
             }
         }
 

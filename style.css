@@ -215,9 +215,6 @@ body {
     text-align: center;
 }
 
-.ans {
-    border : 1px solid red;
-}
 
 .timer {
     font-size: 1.2rem;
@@ -319,6 +316,8 @@ footer {
     background-color: #f44336;
     color: white;
 }
+
+
 
 
 /* Responsive Design */
