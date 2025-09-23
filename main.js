@@ -39,6 +39,8 @@ let result = document.querySelector(".result");
 let actualeQuiz = 0;
 let answersQuiz = [];
 let timeLeft = 5;
+let timeGlobal = 0;
+let timerGlobalInterval = null;
 let timerInterval = null;
 let pseudoArray = [];
 let theme = 0;
@@ -64,7 +66,6 @@ btnChoice.forEach(btn => {
 
     });
 });
-
 
 if (localStorage.getItem("pseudo")) {
     pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
@@ -93,6 +94,7 @@ const Pseudo = () => {
     actualeQuiz = 0;
     answersQuiz = [];
 
+    startGlobalTime();
     HandleQuiz();
 }
 
@@ -106,6 +108,7 @@ window.onclick = function(event) {
     }
 }
 
+
 //
 const HandleQuiz = () => {
 
@@ -114,6 +117,10 @@ const HandleQuiz = () => {
         quizSection.style.display = "none";
 
         result.style = "block";
+
+        clearInterval(timerGlobalInterval);
+
+
 
         answersQuiz.forEach((elem , i) => {
 
@@ -144,6 +151,8 @@ const HandleQuiz = () => {
         });
 
         document.querySelector("#score").textContent = score;
+        document.querySelector("#globalTime").textContent = formatSecondsToHMS(timeGlobal);
+
 
         return;
     }
@@ -163,6 +172,31 @@ const HandleQuiz = () => {
     startTimer();
 };
 
+
+// format time
+function formatSecondsToHMS(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+
+// Global Timer
+const startGlobalTime = () => {
+
+
+    timerGlobalInterval = setInterval(() => {
+        timeGlobal++;
+        console.log("... "  , timeGlobal);
+    }, 1000);
+
+};
 
 // result
 const anwersQuestionTemplate = (elem, i) => {
