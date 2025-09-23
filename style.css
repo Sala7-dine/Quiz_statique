@@ -263,14 +263,18 @@ h2#question-text {
     margin-right: 10px;
 }
 
-.correct {
-    background: #d4edda;
-    border-color: #28a745;
+.answer-option.correct {
+    background-color: #d4edda !important;
+    border: 2px solid #28a745 !important;
+    color: #155724;
+    transition: all 0.3s ease;
 }
 
-.incorrect {
-    background: #f8d7da;
-    border-color: #dc3545;
+.answer-option.incorrect {
+    background-color: #f8d7da !important;
+    border: 2px solid #dc3545 !important;
+    color: #721c24;
+    transition: all 0.3s ease;
 }
 
 footer {
@@ -307,13 +311,14 @@ footer {
     color: #555;
 }
 
-.correct {
-    background-color: #4caf50;
+/* Styles pour les résultats finaux */
+.result .correct {
+    background-color: #0f6e12;
     color: white;
 }
 
-.incorrect {
-    background-color: #f44336;
+.result .incorrect {
+    background-color: #a11e13;
     color: white;
 }
 
