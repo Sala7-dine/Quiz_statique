@@ -1,3 +1,7 @@
+import saveData from "./storage.js";
+
+saveData([1,2,3,4]);
+
 let data = [];
 
 // loading data
@@ -10,9 +14,8 @@ async function getData(them) {
         let response = await fetch(them_);
         data = await response.json();
 
-        console.log(`this is ${them} data : `, data);
-
     }catch (error) {
+
         console.log(error);
 
     }
@@ -50,6 +53,7 @@ let score = 0;
 // choisi le thematique
 btnChoice.forEach(btn => {
     btn.addEventListener("click", () => {
+
         theme = parseInt(btn.value);
 
         if (theme === 1) {
@@ -65,6 +69,7 @@ btnChoice.forEach(btn => {
         modal.style.display = "flex";
 
     });
+
 });
 
 if (localStorage.getItem("pseudo")) {
@@ -132,10 +137,10 @@ const HandleQuiz = () => {
 
                 let userAnswers = elem.choix || [];
                 let correctAnswers = data[i].correctAnswer;
-                
+
                 if (Array.isArray(userAnswers) && Array.isArray(correctAnswers)) {
 
-                    let isCorrect = userAnswers.length === correctAnswers.length && 
+                    let isCorrect = userAnswers.length === correctAnswers.length &&
                                    userAnswers.every(answer => correctAnswers.includes(answer)) &&
                                    correctAnswers.every(answer => userAnswers.includes(answer));
                     if (isCorrect) {
@@ -190,7 +195,6 @@ function formatSecondsToHMS(totalSeconds) {
 // Global Timer
 const startGlobalTime = () => {
 
-
     timerGlobalInterval = setInterval(() => {
         timeGlobal++;
         console.log("... "  , timeGlobal);
@@ -216,12 +220,12 @@ const questionTemplates = (qs, cor, cors) => {
 
         let bg = "white";
         let cssClass = "";
-        
+
         if (qs.multiQuestion) {
 
             let correctAnswers = Array.isArray(cor) ? cor : [cor];
             let userAnswers = Array.isArray(cors) ? cors : (cors !== null && cors !== undefined ? [cors] : []);
-            
+
             if (correctAnswers.includes(i)) {
 
                 cssClass = "correct";
@@ -322,7 +326,7 @@ nextBtn.addEventListener("click", function () {
         document.querySelectorAll('input[name="answer"]').forEach(input => {
             let index = parseInt(input.value);
             let label = input.closest("label");
-            
+
             if (correctAnswers.includes(index)) {
 
                 label.classList.add("correct");
