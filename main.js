@@ -1,6 +1,4 @@
-import saveData from "./storage.js";
-
-saveData([1,2,3,4]);
+import { saveGame , saveInProgress , clearInProgress , loadInProgress } from "./storage.js";
 
 let data = [];
 
@@ -50,6 +48,29 @@ let theme = 0;
 let score = 0;
 
 
+// window.addEventListener("DOMContentLoaded", () => {
+//     const inProgress = loadInProgress();
+//     if (inProgress) {
+//         if (confirm("Voulez-vous reprendre votre partie précédente ?")) {
+//             pseudo.value = inProgress.pseudo;
+//             theme = inProgress.theme;
+//             actualeQuiz = inProgress.actualeQuiz;
+//             answersQuiz = inProgress.answersQuiz;
+//             timeGlobal = inProgress.timeGlobal;
+//
+//             modal.style.display = "none";
+//             welcomeSection.style.display = "none";
+//             quizSection.style.display = "block";
+//
+//             startGlobalTime();
+//             HandleQuiz();
+//         } else {
+//             clearInProgress();
+//         }
+//     }
+// });
+
+
 // choisi le thematique
 btnChoice.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -72,27 +93,26 @@ btnChoice.forEach(btn => {
 
 });
 
-if (localStorage.getItem("pseudo")) {
-    pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
-}
+// if (localStorage.getItem("pseudo")) {
+//     pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
+// }
 
 startBtn.addEventListener("click", () => {
     modal.style.display = "flex";
 });
 
 // saisir le prenom
-const Pseudo = () => {
 
+document.querySelector(".submit-btn").addEventListener("click" , () => {
     if(pseudo.value === ""){
         document.querySelector(".error").textContent = "le nom ne peut etre vide";
         return;
     }
 
-
     modal.style.display = "none";
     pseudoArray.push(pseudo.value);
 
-    localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
+    // localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
 
     welcomeSection.style.display = "none";
     quizSection.style.display = "block";
@@ -101,7 +121,29 @@ const Pseudo = () => {
 
     startGlobalTime();
     HandleQuiz();
-}
+
+});
+
+// const Pseudo = () => {
+//
+//     if(pseudo.value === ""){
+//         document.querySelector(".error").textContent = "le nom ne peut etre vide";
+//         return;
+//     }
+//
+//     modal.style.display = "none";
+//     pseudoArray.push(pseudo.value);
+//
+//     // localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
+//
+//     welcomeSection.style.display = "none";
+//     quizSection.style.display = "block";
+//     actualeQuiz = 0;
+//     answersQuiz = [];
+//
+//     startGlobalTime();
+//     HandleQuiz();
+// }
 
 close.onclick = function() {
     modal.style.display = "none";
@@ -121,11 +163,9 @@ const HandleQuiz = () => {
 
         quizSection.style.display = "none";
 
-        result.style = "block";
+        result.style.display = "block";
 
         clearInterval(timerGlobalInterval);
-
-
 
         answersQuiz.forEach((elem , i) => {
 
@@ -158,6 +198,7 @@ const HandleQuiz = () => {
         document.querySelector("#score").textContent = score;
         document.querySelector("#globalTime").textContent = formatSecondsToHMS(timeGlobal);
 
+        saveGame(pseudo.value, score, theme, answersQuiz, timeGlobal);
 
         return;
     }
@@ -306,6 +347,14 @@ const saveAnswer = (choice, timeSpent) => {
         correctAnswer: data[actualeQuiz].correctAnswer,
         multiQuestion: data[actualeQuiz].multiQuestion || false,
         tempsPasse: timeSpent
+    });
+
+    saveInProgress({
+        pseudo: pseudo.value,
+        theme,
+        actualeQuiz,
+        answersQuiz,
+        timeGlobal
     });
 
 };
