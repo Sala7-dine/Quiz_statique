@@ -1,0 +1,82 @@
+[
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS permet de changer la couleur du texte ?",
+    "options": ["color", "background-color", "font-color", "text-style"],
+    "correctAnswer": 0,
+    "explanation": "La propriété CSS 'color' permet de définir la couleur du texte.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété est utilisée pour changer la taille de la police ?",
+    "options": ["text-size", "font-style", "font-size", "size"],
+    "correctAnswer": 2,
+    "explanation": "La propriété 'font-size' est utilisée pour définir la taille du texte.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS permet de définir l’espace entre les lignes de texte ?",
+    "options": ["line-height", "letter-spacing", "word-spacing", "text-indent"],
+    "correctAnswer": 0,
+    "explanation": "La propriété 'line-height' définit la hauteur de ligne (espacement vertical entre les lignes).",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle valeur de 'position' permet de fixer un élément par rapport à la fenêtre du navigateur ?",
+    "options": ["absolute", "relative", "fixed", "sticky"],
+    "correctAnswer": 2,
+    "explanation": "La valeur 'fixed' permet de fixer un élément par rapport à la fenêtre du navigateur.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle unité est relative à la taille de la police de l’élément parent ?",
+    "options": ["px", "em", "rem", "%"],
+    "correctAnswer": 1,
+    "explanation": "L’unité 'em' est relative à la taille de la police de l’élément parent.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS est utilisée pour arrondir les coins d’un élément ?",
+    "options": ["border-radius", "corner-style", "round-corner", "border-style"],
+    "correctAnswer": 0,
+    "explanation": "La propriété 'border-radius' permet d’arrondir les coins d’un élément.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS permet de centrer un élément avec Flexbox ?",
+    "options": ["align-items", "justify-content", "center", "flex-center"],
+    "correctAnswer": 1,
+    "explanation": "'justify-content: center' permet de centrer les éléments horizontalement dans un conteneur Flexbox.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS contrôle la transparence d’un élément ?",
+    "options": ["visibility", "opacity", "filter", "alpha"],
+    "correctAnswer": 1,
+    "explanation": "La propriété 'opacity' définit la transparence d’un élément (0 = invisible, 1 = opaque).",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle règle CSS est utilisée pour appliquer un style uniquement lorsqu’un utilisateur survole un élément ?",
+    "options": [":hover", ":focus", ":active", ":visited"],
+    "correctAnswer": 0,
+    "explanation": "Le pseudo-sélecteur ':hover' permet d’appliquer un style lorsqu’un utilisateur survole un élément.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle propriété CSS permet de transformer un élément en grille ?",
+    "options": ["display: block", "display: inline", "display: flex", "display: grid"],
+    "correctAnswer": 3,
+    "explanation": "La valeur 'display: grid' permet de transformer un élément en conteneur de grille CSS.",
+    "multiQuestion" : false
+  }
+]

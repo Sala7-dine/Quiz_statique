@@ -1,0 +1,82 @@
+[
+  {
+    "type": "qcm",
+    "question": "Quelle est la balise correcte pour le plus grand titre ?",
+    "options": ["<heading>", "<h1>", "<h6>", "<title>"],
+    "correctAnswer": 1,
+    "explanation": "La balise <h1> est utilisée pour le plus grand titre dans HTML.",
+    "multiQuestion" :true
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise HTML est utilisée pour insérer une image ?",
+    "options": ["<img>", "<picture>", "<image>", "<src>"],
+    "correctAnswer": 0,
+    "explanation": "La balise <img> permet d'insérer une image dans une page HTML.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise permet de créer un lien hypertexte ?",
+    "options": ["<link>", "<a>", "<href>", "<nav>"],
+    "correctAnswer": 1,
+    "explanation": "La balise <a> est utilisée pour créer des liens hypertexte avec l’attribut href.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quel attribut HTML est utilisé pour décrire le texte alternatif d'une image ?",
+    "options": ["title", "alt", "src", "description"],
+    "correctAnswer": 1,
+    "explanation": "L’attribut 'alt' fournit une description alternative pour une image.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise est utilisée pour créer une liste ordonnée ?",
+    "options": ["<ul>", "<ol>", "<li>", "<dl>"],
+    "correctAnswer": 1,
+    "explanation": "La balise <ol> (ordered list) est utilisée pour les listes numérotées.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise est utilisée pour créer une ligne horizontale ?",
+    "options": ["<br>", "<line>", "<hr>", "<separator>"],
+    "correctAnswer": 2,
+    "explanation": "La balise <hr> insère une ligne horizontale dans la page.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise HTML est utilisée pour créer un formulaire ?",
+    "options": ["<form>", "<input>", "<fieldset>", "<label>"],
+    "correctAnswer": 0,
+    "explanation": "La balise <form> est utilisée pour créer un formulaire en HTML.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise est utilisée pour créer une cellule dans un tableau ?",
+    "options": ["<tr>", "<td>", "<table>", "<th>"],
+    "correctAnswer": 1,
+    "explanation": "La balise <td> (table data) représente une cellule d’un tableau.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle balise HTML permet d’insérer une vidéo ?",
+    "options": ["<video>", "<media>", "<movie>", "<iframe>"],
+    "correctAnswer": 0,
+    "explanation": "La balise <video> permet d’insérer une vidéo avec les attributs src, controls, autoplay, etc.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle est la balise racine d'un document HTML ?",
+    "options": ["<html>", "<head>", "<body>", "<root>"],
+    "correctAnswer": 0,
+    "explanation": "La balise <html> est la racine de tout document HTML.",
+    "multiQuestion" : false
+  }
+]

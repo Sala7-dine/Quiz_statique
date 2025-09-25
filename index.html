@@ -47,7 +47,7 @@
             <p>Entrez votre nom :</p>
             <input type="text" name="" class="pseudo" placeholder="saisir votre nom..." id="">
             <p id="pseudo-error" class="error" style="color : red"></p>
-            <button class="submit-btn" onclick="Pseudo()">Valider</button>
+            <button class="submit-btn">Valider</button>
         </div>
 
     </div>
@@ -79,12 +79,13 @@
     </div>
 
         <div id="result" class="result" style="display: none;">
-            <h3>Votre score : <span id="score">0</span> / 10</h3>
+            <h3>Votre score: <span id="score">0</span> / 10</h3>
+            <h4>Time global: <span id="globalTime">0</span></h4>
             <p id="feedback">Excellent !</p>
 
         </div>
 </main>
 
-<script src="main.js"></script>
+<script type="module" src="main.js"></script>
 </body>
 </html>

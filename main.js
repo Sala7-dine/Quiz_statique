@@ -1,65 +1,21 @@
-const jsdata = [
-    {
-    type: 'qcm',
-    question: "Quelle méthode JavaScript ajoute un ou plusieurs éléments à la fin d'un tableau ?",
-    options: ['push()', 'pop()', 'shift()', 'unshift()'],
-    correctAnswer: 3,
-    explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
-    }, {
-        type: 'qcm',
-        question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
-        options: ['pop()', 'shift()', 'slice()', 'splice()'],
-        correctAnswer: 0,
-        explanation: "pop() supprime le dernier élément d'un tableau et retourne cet élément."
-    }, {
-        type: 'qcm',
-        question: "Quelle structure permet de déclarer une variable dont la valeur ne change pas ?",
-        options: ['let', 'const', 'var', 'static'],
-        correctAnswer: 1,
-        explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
-}];
+import { saveGame , saveInProgress , clearInProgress , loadInProgress } from "./storage.js";
 
-const htmldata = [
-    {
-        type: 'qcm',
-        question: "Quelle méthode html ajoute un ou plusieurs éléments à la fin d'un tableau ?",
-        options: ['push()', 'pop()', 'shift()', 'unshift()'],
-        correctAnswer: 3,
-        explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
-    }, {
-        type: 'qcm',
-        question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
-        options: ['pop()', 'shift()', 'slice()', 'splice()'],
-        correctAnswer: 0,
-        explanation: "pop() supprime le dernier élément d'un tableau et retourne cet élément."
-    }, {
-        type: 'qcm',
-        question: "Quelle structure permet de déclarer une variable dont la valeur ne change pas ?",
-        options: ['let', 'const', 'var', 'static'],
-        correctAnswer: 1,
-        explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
-    }];
+let data = [];
 
-const cssdata = [
-    {
-        type: 'qcm',
-        question: "Quelle méthode css ajoute un ou plusieurs éléments à la fin d'un tableau ?",
-        options: ['push()', 'pop()', 'shift()', 'unshift()'],
-        correctAnswer: 3,
-        explanation: "push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle longueur."
-    }, {
-        type: 'qcm',
-        question: "Quelle méthode JavaScript supprime le dernier élément d'un tableau ?",
-        options: ['pop()', 'shift()', 'slice()', 'splice()'],
-        correctAnswer: 0,
-        explanation: "pop() supprime le dernier élément d'un tableau et retourne cet élément."
-    }, {
-        type: 'qcm',
-        question: "Quelle structure permet de déclarer une variable dont la valeur ne change pas ?",
-        options: ['let', 'const', 'var', 'static'],
-        correctAnswer: 1,
-        explanation: "const permet de déclarer une constante qui ne peut pas être réassignée."
-    }];
+// loading data
+async function getData(them) {
+
+    console.log(them);
+    const them_ = `${them}.json`;
+    try {
+        let response = await fetch(them_);
+        data = await response.json();
+        return data;
+    }catch (error) {
+        console.log(error);
+    }
+
+}
 
 let welcomeSection = document.querySelector(".welcome-section");
 let startBtn = document.querySelector(".start-button");
@@ -81,22 +37,63 @@ let result = document.querySelector(".result");
 let actualeQuiz = 0;
 let answersQuiz = [];
 let timeLeft = 5;
+let timeGlobal = 0;
+let timerGlobalInterval = null;
 let timerInterval = null;
 let pseudoArray = [];
 let theme = 0;
 let score = 0;
-let data = [];
 
+
+window.addEventListener("DOMContentLoaded", async () => {
+    const inProgress = loadInProgress();
+    if (inProgress) {
+        if (confirm("Voulez-vous reprendre votre partie précédente ?")) {
+            pseudo.value = inProgress.pseudo;
+            theme = inProgress.theme;
+            actualeQuiz = inProgress.actualeQuiz;
+            answersQuiz = inProgress.answersQuiz;
+            timeGlobal = inProgress.timeGlobal;
+
+            modal.style.display = "none";
+            welcomeSection.style.display = "none";
+            cardsContainer.style.display = "none";
+            quizSection.style.display = "block";
+
+            if (theme === 1) {
+                await getData("javascript");
+            }else if (theme === 2) {
+                await getData("html");
+            }else if (theme === 3) {
+                await getData("css");
+            }
+
+
+            console.log("data : " , data);
+
+            startGlobalTime();
+            HandleQuiz();
+        } else {
+            clearInProgress();
+        }
+    }
+});
+
+
+
+
+// choisi le thematique
 btnChoice.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
+
         theme = parseInt(btn.value);
 
         if (theme === 1) {
-            data = jsdata;
+            await getData("javascript");
         }else if (theme === 2) {
-            data = htmldata;
+            await getData("html");
         }else if (theme === 3) {
-            data = cssdata;
+            await getData("css");
         }
 
         cardsContainer.style.display = "none";
@@ -104,41 +101,65 @@ btnChoice.forEach(btn => {
         modal.style.display = "flex";
 
     });
+
 });
 
-
-if (localStorage.getItem("pseudo")) {
-    pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
-}
+// if (localStorage.getItem("pseudo")) {
+//     pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
+// }
 
 startBtn.addEventListener("click", () => {
     modal.style.display = "flex";
 });
 
+// saisir le prenom
 
-const Pseudo = () => {
+document.querySelector(".submit-btn").addEventListener("click" , () => {
+    if(pseudo.value === ""){
+        document.querySelector(".error").textContent = "le nom ne peut etre vide";
+        return;
+    }
 
-    if (pseudoArray.includes(pseudo.value)){
-        if(pseudo.value === ""){
-            document.querySelector(".error").textContent = "le nom ne peut etre vide";
-            return;
-        }
-        document.querySelector(".error").textContent = "le nom deja existe";
+     if (!data || data.length === 0) {
+        document.querySelector(".error").textContent = "Erreur de chargement des données";
         return;
     }
 
     modal.style.display = "none";
     pseudoArray.push(pseudo.value);
 
-    localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
+    // localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
 
     welcomeSection.style.display = "none";
     quizSection.style.display = "block";
     actualeQuiz = 0;
     answersQuiz = [];
 
+    startGlobalTime();
     HandleQuiz();
-}
+
+});
+
+// const Pseudo = () => {
+//
+//     if(pseudo.value === ""){
+//         document.querySelector(".error").textContent = "le nom ne peut etre vide";
+//         return;
+//     }
+//
+//     modal.style.display = "none";
+//     pseudoArray.push(pseudo.value);
+//
+//     // localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
+//
+//     welcomeSection.style.display = "none";
+//     quizSection.style.display = "block";
+//     actualeQuiz = 0;
+//     answersQuiz = [];
+//
+//     startGlobalTime();
+//     HandleQuiz();
+// }
 
 close.onclick = function() {
     modal.style.display = "none";
@@ -150,31 +171,52 @@ window.onclick = function(event) {
     }
 }
 
-
+//
 const HandleQuiz = () => {
 
     if (actualeQuiz >= data.length) {
 
+        console.log("actule quiz : " , actualeQuiz);
+        console.log("data.length" ,data.length);
+
         quizSection.style.display = "none";
 
+        result.style.display = "block";
 
-        result.style = "block";
-
-
+        clearInterval(timerGlobalInterval);
 
         answersQuiz.forEach((elem , i) => {
 
             let div = anwersQuestionTemplate(elem , i);
             result.innerHTML += div;
 
-            if(elem.choix === data[i].correctAnswer){
-                score++;
+
+            if (elem.multiQuestion) {
+
+                let userAnswers = elem.choix || [];
+                let correctAnswers = elem.correctAnswer;
+
+                if (Array.isArray(userAnswers) && Array.isArray(correctAnswers)) {
+
+                    let isCorrect = userAnswers.length === correctAnswers.length &&
+                                   userAnswers.every(answer => correctAnswers.includes(answer)) &&
+                                   correctAnswers.every(answer => userAnswers.includes(answer));
+                    if (isCorrect) {
+                        score++;
+                    }
+                }
+            } else {
+
+                if(elem.choix === elem.correctAnswer){
+                    score++;
+                }
             }
-
-
         });
 
         document.querySelector("#score").textContent = score;
+        document.querySelector("#globalTime").textContent = formatSecondsToHMS(timeGlobal);
+
+        saveGame(pseudo.value, score, theme, answersQuiz, timeGlobal);
 
         return;
     }
@@ -183,12 +225,45 @@ const HandleQuiz = () => {
     answers.innerHTML = questionTemplate(data[actualeQuiz]);
     currentQuestion.innerHTML = (actualeQuiz + 1).toString();
 
+
+    setTimeout(() => {
+        document.querySelectorAll('.answer-option').forEach(option => {
+            option.classList.remove('correct', 'incorrect');
+        });
+    }, 100);
+
     timeLeft = 5;
     startTimer();
 };
 
+// format time
+function formatSecondsToHMS(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+// Global Timer
+const startGlobalTime = () => {
+
+    timerGlobalInterval = setInterval(() => {
+        timeGlobal++;
+    }, 1000);
+
+};
+
+// result
 const anwersQuestionTemplate = (elem, i) => {
+
+    if (!data[i]) {
+        return "";
+    }
 
     return `<main class="ans">
                 <div class="question">
@@ -198,43 +273,73 @@ const anwersQuestionTemplate = (elem, i) => {
             </main>`
 };
 
-
+// check result
 const questionTemplates = (qs, cor, cors) => {
-
-
-
     return qs.options.map((opt, i) => {
+
         let bg = "white";
-        if (cor === cors && i === cor) {
-            bg = "green";
-        } else if (cor !== cors) {
-            if (i === cors) {
-                bg = "red";
-            } else if (i === cor) {
-                bg = "green";
-            } else if (cors === -1) {
-                bg = "yellow";
+        let cssClass = "";
+
+        if (qs.multiQuestion) {
+
+            let correctAnswers = Array.isArray(cor) ? cor : [cor];
+            let userAnswers = Array.isArray(cors) ? cors : (cors !== null && cors !== undefined ? [cors] : []);
+
+            if (correctAnswers.includes(i)) {
+
+                cssClass = "correct";
+                bg = "#d4edda";
+            } else if (userAnswers.includes(i)) {
+
+                cssClass = "incorrect";
+                bg = "#f8d7da";
+            }
+        } else {
+
+            if (cor === cors && i === cor) {
+                bg = "#d4edda";
+                cssClass = "correct";
+            } else if (cor !== cors) {
+                if (i === cors) {
+                    bg = "#f8d7da";
+                    cssClass = "incorrect";
+                } else if (i === cor) {
+                    bg = "#d4edda";
+                    cssClass = "correct";
+                } else if (cors === -1 || cors === null) {
+                    bg = "#fff3cd";
+                }
             }
         }
 
         return `
-          <label class="answer-option" style="background:${bg}">
+          <label class="answer-option ${cssClass}" style="background:${bg}">
             ${opt}
           </label>`;
 
     }).join("");
 };
 
+// options
 const questionTemplate = (qs) => {
-    return qs.options.map((opt, i) => `
-        <label class="answer-option">
-            <input type="radio" name="answer" value=${i}> 
+    return qs.options.map((opt, i) => {
+
+        let type = "";
+        if(data[actualeQuiz].multiQuestion){
+            type = "checkbox";
+        }else {
+            type = "radio";
+        }
+
+       return `
+       <label class="answer-option">
+            <input type=${type} name="answer" value=${i}> 
             ${opt}
         </label>
-    `).join("");
+    `}).join("");
 };
 
-
+// Timer
 const startTimer = () => {
     clearInterval(timerInterval);
     timerEl.textContent = timeLeft;
@@ -250,51 +355,88 @@ const startTimer = () => {
     }, 1000);
 };
 
-
+// save answers
 const saveAnswer = (choice, timeSpent) => {
 
     answersQuiz.push({
         question: data[actualeQuiz].question,
-        choix: Number(choice),
+        choix: choice,
         options : data[actualeQuiz].options,
         correctAnswer: data[actualeQuiz].correctAnswer,
+        multiQuestion: data[actualeQuiz].multiQuestion || false,
         tempsPasse: timeSpent
     });
 
+    saveInProgress({
+        pseudo: pseudo.value,
+        theme,
+        actualeQuiz,
+        answersQuiz,
+        timeGlobal
+    });
 
 };
 
-
 nextBtn.addEventListener("click", function () {
-    let choice = document.querySelector('input[name="answer"]:checked');
+
     clearInterval(timerInterval);
+    let timeSpent = 5 - timeLeft;
 
-    if (choice) {
-        let timeSpent = 5 - timeLeft;
 
-        let chosenIndex = parseInt(choice.value);
-        let correctIndex = data[actualeQuiz].correctAnswer;
+    if (data[actualeQuiz].multiQuestion) {
 
-        let chosenLabel = choice.closest("label");
-        let correctLabel = document.querySelector(`input[value="${correctIndex}"]`).closest("label");
+        let checkedBoxes = document.querySelectorAll('input[name="answer"]:checked');
+        let selectedAnswers = Array.from(checkedBoxes).map(box => parseInt(box.value));
+        let correctAnswers = data[actualeQuiz].correctAnswer;
 
-        if (chosenIndex === correctIndex) {
-            chosenLabel.classList.add("correct");
-        } else {
-            chosenLabel.classList.add("incorrect");
-            correctLabel.classList.add("correct");
-        }
+        document.querySelectorAll('input[name="answer"]').forEach(input => {
+            let index = parseInt(input.value);
+            let label = input.closest("label");
 
-        saveAnswer(choice.value, timeSpent);
+            if (correctAnswers.includes(index)) {
 
-        setTimeout(() => {
-            actualeQuiz++;
-            HandleQuiz();
-        }, 1000);
+                label.classList.add("correct");
+            } else if (selectedAnswers.includes(index)) {
+
+                label.classList.add("incorrect");
+            }
+        });
+
+        saveAnswer(selectedAnswers, timeSpent);
 
     } else {
-        saveAnswer(null, 10);
+
+        let choice = document.querySelector('input[name="answer"]:checked');
+
+        if (choice) {
+            let timeSpent = 5 - timeLeft;
+            let chosenIndex = parseInt(choice.value);
+            let correctIndex = data[actualeQuiz].correctAnswer;
+
+            let chosenLabel = choice.closest("label");
+            let correctLabel = document.querySelector(`input[value="${correctIndex}"]`).closest("label");
+
+            if (chosenIndex === correctIndex) {
+                chosenLabel.classList.add("correct");
+            } else {
+                chosenLabel.classList.add("incorrect");
+                correctLabel.classList.add("correct");
+            }
+
+            saveAnswer(chosenIndex, timeSpent);
+        } else {
+
+            saveAnswer(null, timeSpent);
+        }
+    }
+
+
+    setTimeout(() => {
         actualeQuiz++;
         HandleQuiz();
-    }
+    }, 2000);
 });
+
+
+
+

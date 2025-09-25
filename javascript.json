@@ -1,0 +1,90 @@
+[
+  {
+    "type": "qcm",
+    "question": "Quelle méthode JavaScript permet d’ajouter un élément à la fin d’un tableau ?",
+    "options": ["push()", "pop()", "shift()", "unshift()"],
+    "correctAnswer": 0,
+    "explanation": "La méthode push() ajoute un ou plusieurs éléments à la fin d’un tableau.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode JavaScript supprime le dernier élément d’un tableau ?",
+    "options": ["pop()", "shift()", "slice()", "splice()"],
+    "correctAnswer": [0,1],
+    "explanation": "La méthode pop() supprime et retourne le dernier élément d’un tableau.",
+    "multiQuestion" : true
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle structure permet de déclarer une constante en JavaScript ?",
+    "options": ["let", "const", "var", "static"],
+    "correctAnswer": 1,
+    "explanation": "La déclaration const permet de créer une constante qui ne peut pas être réassignée.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode convertit une chaîne en majuscules ?",
+    "options": ["toUpper()", "toUpperCase()", "upper()", "capitalize()"],
+    "correctAnswer": 1,
+    "explanation": "La méthode toUpperCase() convertit une chaîne en majuscules.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle fonction est utilisée pour afficher des messages dans la console ?",
+    "options": ["print()", "console.log()", "log()", "alert()"],
+    "correctAnswer": 1,
+    "explanation": "La fonction console.log() permet d’afficher des messages dans la console du navigateur.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode permet de transformer une chaîne JSON en objet JavaScript ?",
+    "options": ["JSON.parse()", "JSON.stringify()", "JSON.toObject()", "JSON.convert()"],
+    "correctAnswer": 0,
+    "explanation": "La méthode JSON.parse() convertit une chaîne JSON en objet JavaScript.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode supprime le premier élément d’un tableau ?",
+    "options": ["shift()", "pop()", "slice()", "splice()"],
+    "correctAnswer": 0,
+    "explanation": "La méthode shift() supprime et retourne le premier élément d’un tableau.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode permet de répéter une chaîne un certain nombre de fois ?",
+    "options": ["repeat()", "copy()", "duplicate()", "clone()"],
+    "correctAnswer": 0,
+    "explanation": "La méthode repeat() permet de répéter une chaîne le nombre de fois indiqué.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle structure de boucle est utilisée pour parcourir les clés d’un objet ?",
+    "options": ["for...of", "forEach", "for...in", "map()"],
+    "correctAnswer": 2,
+    "explanation": "La boucle for...in parcourt les clés (propriétés énumérables) d’un objet.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelle méthode permet de fusionner deux tableaux en JavaScript ?",
+    "options": ["concat()", "merge()", "combine()", "append()"],
+    "correctAnswer": 0,
+    "explanation": "La méthode concat() est utilisée pour fusionner deux ou plusieurs tableaux.",
+    "multiQuestion" : false
+  },
+  {
+    "type": "qcm",
+    "question": "Quelles sont les méthodes qui modifient le tableau original en JavaScript ? (Plusieurs réponses possibles)",
+    "options": ["push()", "map()", "pop()", "filter()", "splice()"],
+    "correctAnswer": [0, 2, 4],
+    "explanation": "push(), pop() et splice() modifient le tableau original, contrairement à map() et filter() qui retournent un nouveau tableau.",
+    "multiQuestion" : true
+  }
+]
