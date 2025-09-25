@@ -5,20 +5,17 @@ let data = [];
 // loading data
 async function getData(them) {
 
+    console.log(them);
     const them_ = `${them}.json`;
-
     try {
-
         let response = await fetch(them_);
         data = await response.json();
-
+        return data;
     }catch (error) {
-
         console.log(error);
-
     }
-}
 
+}
 
 let welcomeSection = document.querySelector(".welcome-section");
 let startBtn = document.querySelector(".start-button");
@@ -48,41 +45,55 @@ let theme = 0;
 let score = 0;
 
 
-// window.addEventListener("DOMContentLoaded", () => {
-//     const inProgress = loadInProgress();
-//     if (inProgress) {
-//         if (confirm("Voulez-vous reprendre votre partie précédente ?")) {
-//             pseudo.value = inProgress.pseudo;
-//             theme = inProgress.theme;
-//             actualeQuiz = inProgress.actualeQuiz;
-//             answersQuiz = inProgress.answersQuiz;
-//             timeGlobal = inProgress.timeGlobal;
-//
-//             modal.style.display = "none";
-//             welcomeSection.style.display = "none";
-//             quizSection.style.display = "block";
-//
-//             startGlobalTime();
-//             HandleQuiz();
-//         } else {
-//             clearInProgress();
-//         }
-//     }
-// });
+window.addEventListener("DOMContentLoaded", async () => {
+    const inProgress = loadInProgress();
+    if (inProgress) {
+        if (confirm("Voulez-vous reprendre votre partie précédente ?")) {
+            pseudo.value = inProgress.pseudo;
+            theme = inProgress.theme;
+            actualeQuiz = inProgress.actualeQuiz;
+            answersQuiz = inProgress.answersQuiz;
+            timeGlobal = inProgress.timeGlobal;
+
+            modal.style.display = "none";
+            welcomeSection.style.display = "none";
+            cardsContainer.style.display = "none";
+            quizSection.style.display = "block";
+
+            if (theme === 1) {
+                await getData("javascript");
+            }else if (theme === 2) {
+                await getData("html");
+            }else if (theme === 3) {
+                await getData("css");
+            }
+
+
+            console.log("data : " , data);
+
+            startGlobalTime();
+            HandleQuiz();
+        } else {
+            clearInProgress();
+        }
+    }
+});
+
+
 
 
 // choisi le thematique
 btnChoice.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
 
         theme = parseInt(btn.value);
 
         if (theme === 1) {
-            data = getData("javascript");
+            await getData("javascript");
         }else if (theme === 2) {
-            data = getData("html");
+            await getData("html");
         }else if (theme === 3) {
-            data = getData("css");
+            await getData("css");
         }
 
         cardsContainer.style.display = "none";
@@ -106,6 +117,11 @@ startBtn.addEventListener("click", () => {
 document.querySelector(".submit-btn").addEventListener("click" , () => {
     if(pseudo.value === ""){
         document.querySelector(".error").textContent = "le nom ne peut etre vide";
+        return;
+    }
+
+     if (!data || data.length === 0) {
+        document.querySelector(".error").textContent = "Erreur de chargement des données";
         return;
     }
 
@@ -155,11 +171,13 @@ window.onclick = function(event) {
     }
 }
 
-
 //
 const HandleQuiz = () => {
 
     if (actualeQuiz >= data.length) {
+
+        console.log("actule quiz : " , actualeQuiz);
+        console.log("data.length" ,data.length);
 
         quizSection.style.display = "none";
 
@@ -176,7 +194,7 @@ const HandleQuiz = () => {
             if (elem.multiQuestion) {
 
                 let userAnswers = elem.choix || [];
-                let correctAnswers = data[i].correctAnswer;
+                let correctAnswers = elem.correctAnswer;
 
                 if (Array.isArray(userAnswers) && Array.isArray(correctAnswers)) {
 
@@ -189,7 +207,7 @@ const HandleQuiz = () => {
                 }
             } else {
 
-                if(elem.choix === data[i].correctAnswer){
+                if(elem.choix === elem.correctAnswer){
                     score++;
                 }
             }
@@ -218,7 +236,6 @@ const HandleQuiz = () => {
     startTimer();
 };
 
-
 // format time
 function formatSecondsToHMS(totalSeconds) {
     const hours = Math.floor(totalSeconds / 3600);
@@ -232,19 +249,21 @@ function formatSecondsToHMS(totalSeconds) {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-
 // Global Timer
 const startGlobalTime = () => {
 
     timerGlobalInterval = setInterval(() => {
         timeGlobal++;
-        console.log("... "  , timeGlobal);
     }, 1000);
 
 };
 
 // result
 const anwersQuestionTemplate = (elem, i) => {
+
+    if (!data[i]) {
+        return "";
+    }
 
     return `<main class="ans">
                 <div class="question">
@@ -253,7 +272,6 @@ const anwersQuestionTemplate = (elem, i) => {
                 <div class="answers">${questionTemplates(data[i] , elem.correctAnswer , elem.choix)}</div>
             </main>`
 };
-
 
 // check result
 const questionTemplates = (qs, cor, cors) => {
@@ -358,7 +376,6 @@ const saveAnswer = (choice, timeSpent) => {
     });
 
 };
-
 
 nextBtn.addEventListener("click", function () {
 
