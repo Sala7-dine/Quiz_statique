@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quiz Statistiques</title>
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Dashboard Quiz</h1>
+            <nav>
+                <a href="../index.html" class="btn-back">← Retour au Quiz</a>
+            </nav>
+
+        </header>
+
+        <main class="dashboard">
+            <!-- Statistiques générales -->
+            <section class="stats-section">
+                <h2>Statistiques Générales</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-games">0</div>
+                        <div class="stat-label">Parties jouées</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="average-score">0</div>
+                        <div class="stat-label">Score moyen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="best-score">0</div>
+                        <div class="stat-label">Meilleur score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-time">00:00:00</div>
+                        <div class="stat-label">Temps total</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Score moyen par thématique -->
+            <section class="stats-section">
+                <h2>Scores Moyens par Thématique</h2>
+                <div class="theme-stats" id="theme-averages">
+                    <!-- Généré dynamiquement -->
+                </div>
+            </section>
+
+            <!-- Nombre de parties par thématique -->
+            <section class="stats-section">
+                <h2>Parties par Thématique</h2>
+                <div class="chart-container">
+                    <canvas id="themeChart" width="400" height="200"></canvas>
+                </div>
+                <div class="theme-stats" id="theme-counts">
+                    <!-- Généré dynamiquement -->
+                </div>
+            </section>
+
+            <!-- Top 3 joueurs -->
+            <section class="stats-section">
+                <h2>Top 3 Joueurs</h2>
+                <div class="leaderboard" id="top-players">
+                    <!-- Généré dynamiquement -->
+                </div>
+            </section>
+
+            <!-- Progression des scores -->
+            <section class="stats-section">
+                <h2>Progression des Scores</h2>
+                <div class="chart-container">
+                    <canvas id="progressChart" width="400" height="200"></canvas>
+                </div>
+            </section>
+
+            <!-- Dernières parties -->
+            <section class="stats-section">
+                <h2>Dernières Parties</h2>
+                <div class="recent-games" id="recent-games">
+                    <!-- Généré dynamiquement -->
+                </div>
+            </section>
+            <nav>
+                <button id="exportBtn" class="btn-back">↓ Export en Json</button>
+                <button id="exportCsvBtn" class="btn-back">↓ Export en Csv</button>
+            </nav>
+        </main>
+
+
+        <footer class="footer">
+            <p>Dashboard Quiz - Suivi de progression</p>
+        </footer>
+    </div>
+
+
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

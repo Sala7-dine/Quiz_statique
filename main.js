@@ -14,7 +14,6 @@ async function getData(them) {
     }catch (error) {
         console.log(error);
     }
-
 }
 
 let welcomeSection = document.querySelector(".welcome-section");
@@ -68,7 +67,6 @@ window.addEventListener("DOMContentLoaded", async () => {
                 await getData("css");
             }
 
-
             console.log("data : " , data);
 
             startGlobalTime();
@@ -78,8 +76,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
     }
 });
-
-
 
 
 // choisi le thematique
@@ -213,8 +209,12 @@ const HandleQuiz = () => {
             }
         });
 
-        document.querySelector("#score").textContent = score;
+        document.querySelector("#score").textContent = `${score} / ${data.length}`;
         document.querySelector("#globalTime").textContent = formatSecondsToHMS(timeGlobal);
+        
+        // Calculer et afficher le pourcentage
+        const percentage = Math.round((score / data.length) * 100);
+        document.querySelector("#percentage").textContent = `${percentage}%`;
 
         saveGame(pseudo.value, score, theme, answersQuiz, timeGlobal);
 
