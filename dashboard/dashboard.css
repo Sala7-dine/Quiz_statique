@@ -1,0 +1,365 @@
+/* Dashboard CSS - Style shadcn/ui inspired */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: hsl(0 0% 98%);
+    color: hsl(222.2 84% 4.9%);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* Header */
+.header {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.header h1 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    letter-spacing: -0.025em;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    background: hsl(222.2 47.4% 11.2%);
+    color: hsl(210 40% 98%);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-back:hover {
+    background: hsl(222.2 47.4% 11.2% / 0.9);
+}
+
+/* Dashboard */
+.dashboard {
+    display: grid;
+    gap: 24px;
+}
+
+.stats-section {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.stats-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 16px;
+    letter-spacing: -0.025em;
+}
+
+/* Grille des statistiques générales */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    transition: box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: hsl(215.4 16.3% 46.9%);
+    font-weight: 500;
+}
+
+/* Statistiques par thématique */
+.theme-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.theme-card {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.theme-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: hsl(262.1 83.3% 57.8%);
+}
+
+.theme-card.javascript::before {
+    background: hsl(45 93% 47%);
+}
+
+.theme-card.html::before {
+    background: hsl(0 72% 51%);
+}
+
+.theme-card.css::before {
+    background: hsl(262.1 83.3% 57.8%);
+}
+
+.theme-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 8px;
+}
+
+.theme-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 4px;
+}
+
+.theme-detail {
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 14px;
+}
+
+/* Classement */
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.player-rank {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: hsl(0 0% 98%);
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.player-rank:hover {
+    background: hsl(210 40% 98%);
+}
+
+.rank-position {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    margin-right: 12px;
+}
+
+.rank-1 { background: hsl(45 93% 47%); }
+.rank-2 { background: hsl(215 20% 65%); }
+.rank-3 { background: hsl(25 95% 53%); }
+
+.player-info {
+    flex: 1;
+}
+
+.player-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 2px;
+}
+
+.player-stats {
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 14px;
+}
+
+.player-score {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: hsl(222.2 84% 4.9%);
+}
+
+/* Dernières parties */
+.recent-games {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.game-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: hsl(0 0% 98%);
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.game-item:hover {
+    background: hsl(210 40% 98%);
+}
+
+.game-info {
+    flex: 1;
+}
+
+.game-theme {
+    font-weight: 600;
+    font-size: 16px;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 2px;
+}
+
+.game-details {
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 14px;
+}
+
+.game-score {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: hsl(222.2 84% 4.9%);
+}
+
+/* Message d'absence de données */
+.no-data {
+    text-align: center;
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 14px;
+    padding: 32px;
+    background: hsl(0 0% 98%);
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    border-style: dashed;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 24px;
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 14px;
+    margin-top: 32px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    
+    .theme-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .player-rank {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .game-item {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .stats-section {
+        padding: 16px;
+    }
+    
+    .dashboard {
+        gap: 16px;
+    }
+    
+    .chart-container {
+        height: 250px;
+        padding: 12px;
+    }
+}
+
+/* Styles pour les graphiques */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: hsl(0 0% 98%);
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+}
+
+.chart-container canvas {
+    max-height: 100%;
+}

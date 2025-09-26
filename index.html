@@ -9,6 +9,9 @@
 <body>
 <header class="header">
     <h1 class="logo">JSQuizStarter</h1>
+    <nav class="nav">
+        <a href="dashboard/dashboard.html" class="dashboard-link">📊 Dashboard</a>
+    </nav>
 </header>
 
 <main class="main-content">
@@ -52,14 +55,14 @@
 
     </div>
 
-    <div class="quiz-container">
-        <div>
-            <h1>JSQuizStarter</h1>
-            <div class="timer">Temps : <span id="timer">00:00</span></div>
-            <div class="question-counter">Question <span id="current-question">1</span> / 10</div>
+        <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">Quiz en cours</h1>
+            <div class="quiz-meta">
+                <div class="timer">⏱️ <span id="timer">00:00</span></div>
+                <div class="question-counter">Question <span id="current-question">1</span> / 10</div>
+            </div>
         </div>
-
-
         <main>
             <div class="question">
                 <h2 id="question-text" class="question-text"></h2>
@@ -79,10 +82,29 @@
     </div>
 
         <div id="result" class="result" style="display: none;">
-            <h3>Votre score: <span id="score">0</span> / 10</h3>
-            <h4>Time global: <span id="globalTime">0</span></h4>
-            <p id="feedback">Excellent !</p>
-
+            <h2>🎉 Quiz Terminé !</h2>
+            
+            <div class="result-summary">
+                <div class="result-stat">
+                    <div class="result-stat-value" id="score">0</div>
+                    <div class="result-stat-label">Score</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="globalTime">00:00</div>
+                    <div class="result-stat-label">Temps total</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="percentage">0%</div>
+                    <div class="result-stat-label">Réussite</div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn" onclick="location.reload()">Rejouer</button>
+                <a href="dashboard/dashboard.html" class="btn">Voir le Dashboard</a>
+            </div>
+            
+            <h3 style="margin: 32px 0 16px 0; font-size: 18px; font-weight: 600;">Détail des réponses :</h3>
         </div>
 </main>
 
