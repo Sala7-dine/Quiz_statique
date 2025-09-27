@@ -1,4 +1,5 @@
 import { saveGame , saveInProgress , clearInProgress , loadInProgress } from "./storage.js";
+import { themes } from "./dashboard/stats.js";
 
 let data = [];
 
@@ -17,18 +18,12 @@ async function getData(them) {
 }
 
 let welcomeSection = document.querySelector(".welcome-section");
-let startBtn = document.querySelector(".start-button");
 let quizSection = document.querySelector(".quiz-container");
-let questionText = document.querySelector(".question-text");
 let answers = document.querySelector(".answers");
 let timerEl = document.querySelector("#timer");
-let questionCounter = document.querySelector(".question-counter");
-let nextBtn = document.querySelector("#next-btn");
-let currentQuestion = document.querySelector("#current-question");
 let modal = document.getElementById("modal");
 let close = document.querySelector(".close");
 let pseudo = document.querySelector(".pseudo");
-let btnChoice = document.querySelectorAll(".btn-choice");
 let cardsContainer = document.querySelector(".cards-container");
 let result = document.querySelector(".result");
 
@@ -42,6 +37,25 @@ let timerInterval = null;
 let pseudoArray = [];
 let theme = 0;
 let score = 0;
+
+
+const themesTemplate = (theme) => {
+    return `
+    <div class="card">
+    <h3>${theme.titre}</h3>
+    <p>${theme.description}</p>
+    <button class="btn-choice" value="${theme.id}">Choisir</button>
+    </div>
+    `
+}
+
+
+themes.forEach(theme => {
+    cardsContainer.innerHTML +=  themesTemplate(theme); 
+})
+
+
+let btnChoice = document.querySelectorAll(".btn-choice");
 
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -100,11 +114,8 @@ btnChoice.forEach(btn => {
 
 });
 
-// if (localStorage.getItem("pseudo")) {
-//     pseudoArray = JSON.parse(localStorage.getItem("pseudo"));
-// }
 
-startBtn.addEventListener("click", () => {
+document.querySelector(".start-button").addEventListener("click", () => {
     modal.style.display = "flex";
 });
 
@@ -135,27 +146,6 @@ document.querySelector(".submit-btn").addEventListener("click" , () => {
     HandleQuiz();
 
 });
-
-// const Pseudo = () => {
-//
-//     if(pseudo.value === ""){
-//         document.querySelector(".error").textContent = "le nom ne peut etre vide";
-//         return;
-//     }
-//
-//     modal.style.display = "none";
-//     pseudoArray.push(pseudo.value);
-//
-//     // localStorage.setItem("pseudo", JSON.stringify(pseudoArray));
-//
-//     welcomeSection.style.display = "none";
-//     quizSection.style.display = "block";
-//     actualeQuiz = 0;
-//     answersQuiz = [];
-//
-//     startGlobalTime();
-//     HandleQuiz();
-// }
 
 close.onclick = function() {
     modal.style.display = "none";
@@ -221,9 +211,9 @@ const HandleQuiz = () => {
         return;
     }
 
-    questionText.innerHTML = data[actualeQuiz].question;
+    document.querySelector(".question-text").innerHTML = data[actualeQuiz].question;
     answers.innerHTML = questionTemplate(data[actualeQuiz]);
-    currentQuestion.innerHTML = (actualeQuiz + 1).toString();
+    document.querySelector("#current-question").innerHTML = (actualeQuiz + 1).toString();
 
 
     setTimeout(() => {
@@ -258,6 +248,17 @@ const startGlobalTime = () => {
 
 };
 
+
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
 // result
 const anwersQuestionTemplate = (elem, i) => {
 
@@ -269,7 +270,7 @@ const anwersQuestionTemplate = (elem, i) => {
                 <div class="question">
                     <h2 class="question-text">${elem.question}</h2>
                 </div>
-                <div class="answers">${questionTemplates(data[i] , elem.correctAnswer , elem.choix)}</div>
+                <div class="answers"> ${questionTemplates(data[i] , elem.correctAnswer , elem.choix)}</div>
             </main>`
 };
 
@@ -314,11 +315,12 @@ const questionTemplates = (qs, cor, cors) => {
 
         return `
           <label class="answer-option ${cssClass}" style="background:${bg}">
-            ${opt}
+            ${ escapeHTML(opt) }
           </label>`;
 
     }).join("");
 };
+
 
 // options
 const questionTemplate = (qs) => {
@@ -332,9 +334,9 @@ const questionTemplate = (qs) => {
         }
 
        return `
-       <label class="answer-option">
+       <label class="answer-option">    
             <input type=${type} name="answer" value=${i}> 
-            ${opt}
+             ${ escapeHTML(opt) } 
         </label>
     `}).join("");
 };
@@ -377,7 +379,7 @@ const saveAnswer = (choice, timeSpent) => {
 
 };
 
-nextBtn.addEventListener("click", function () {
+document.querySelector("#next-btn").addEventListener("click", function () {
 
     clearInterval(timerInterval);
     let timeSpent = 5 - timeLeft;
@@ -390,6 +392,7 @@ nextBtn.addEventListener("click", function () {
         let correctAnswers = data[actualeQuiz].correctAnswer;
 
         document.querySelectorAll('input[name="answer"]').forEach(input => {
+
             let index = parseInt(input.value);
             let label = input.closest("label");
 

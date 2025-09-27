@@ -1,48 +1,74 @@
-const themes = {1: 'JavaScript', 2: 'HTML', 3: 'CSS'};
+const themes = [
+  {
+    id: 1,
+    titre: "JavaScript",
+    description: "Testez vos connaissances en JavaScript : syntaxe, fonctions et objets."
+  },
+  {
+    id: 2,
+    titre: "html",
+    description: "Un quiz sur la structure HTML."
+  },
+  {
+    id: 3,
+    titre: "css",
+    description: "Mesurez vos compétences logiques et CSS."
+  }
+];
 
+// Fonction utilitaire pour obtenir un thème par ID
+function getThemeById(id) {
+    return themes.find(theme => theme.id == id);
+}
+
+// Charger les parties depuis localStorage
 export function loadGames() {
     const games = localStorage.getItem('quizHistory');
     return games ? JSON.parse(games) : [];
 }
 
+// Calculer le score moyen par thématique en utilisant filter et reduce
 export function getAverageScoreByTheme() {
     const games = loadGames();
-    return Object.keys(themes)
-        .map(themeId => {
-            const themeGames = games.filter(game => game.theme == themeId);
-            const themeName = themes[themeId];
-            
-            if (themeGames.length === 0) {
-                return {
-                    theme: themeName,
-                    average: 0,
-                    totalGames: 0
-                };
-            }
-
-            const totalScore = themeGames.reduce((sum, game) => sum + game.score, 0);
+    return themes.map(theme => {
+        const themeGames = games.filter(game => game.theme == theme.id);
+        
+        if (themeGames.length === 0) {
             return {
-                theme: themeName,
-                average: Math.round((totalScore / themeGames.length) * 100) / 100,
-                totalGames: themeGames.length
+                theme: theme.titre,
+                themeId: theme.id,
+                average: 0,
+                totalGames: 0,
+                description: theme.description
             };
-        });
+        }
+
+        const totalScore = themeGames.reduce((sum, game) => sum + game.score, 0);
+        return {
+            theme: theme.titre,
+            themeId: theme.id,
+            average: Math.round((totalScore / themeGames.length) * 100) / 100,
+            totalGames: themeGames.length,
+            description: theme.description
+        };
+    });
 }
 
-// Compter les parties par thématique
+// Compter les parties par thématique en utilisant filter
 export function getGamesCountByTheme() {
     const games = loadGames();
-    return Object.keys(themes)
-        .map(themeId => ({
-            theme: themes[themeId],
-            count: games.filter(game => game.theme == themeId).length
-        }));
+    return themes.map(theme => ({
+        theme: theme.titre,
+        themeId: theme.id,
+        count: games.filter(game => game.theme == theme.id).length,
+        description: theme.description
+    }));
 }
 
-// Obtenir le top 3 des joueurs
+// Obtenir le top 3 des joueurs en utilisant reduce et map
 export function getTopPlayers() {
     const games = loadGames();
-
+    // Regrouper par pseudo avec reduce
     const playerStats = games.reduce((acc, game) => {
         if (!acc[game.pseudo]) {
             acc[game.pseudo] = {
@@ -100,8 +126,14 @@ export function getRecentGames() {
     return games
         .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
         .slice(0, 5)
-        .map(game => ({
-            ...game,
-            themeName: themes[game.theme] || 'Inconnu'
-        }));
+        .map(game => {
+            const theme = getThemeById(game.theme);
+            return {
+                ...game,
+                themeName: theme ? theme.titre : 'Inconnu'
+            };
+        });
 }
+
+// Exporter les thèmes pour les autres modules
+export { themes };
