@@ -68,7 +68,7 @@ function displayThemeCounts() {
             <div class="theme-card ${count.theme.toLowerCase()}">
                 <div class="theme-name">${count.theme}</div>
                 <div class="theme-value">${count.count}</div>
-                <div class="theme-detail">partie(s) jouée(s)</div>
+                <div class="theme-detail">partie jouée</div>
             </div>
         `).join('');
 }
@@ -90,7 +90,7 @@ function displayTopPlayers() {
                 <div class="player-info">
                     <div class="player-name">${player.pseudo}</div>
                     <div class="player-stats">
-                        ${player.gamesPlayed} partie(s) • 
+                        ${player.gamesPlayed} partie • 
                         Meilleur: ${player.bestScore}
                     </div>
                 </div>

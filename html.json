@@ -3,7 +3,7 @@
     "type": "qcm",
     "question": "Quelle est la balise correcte pour le plus grand titre ?",
     "options": ["<heading>", "<h1>", "<h6>", "<title>"],
-    "correctAnswer": 1,
+    "correctAnswer": [1 , 2],
     "explanation": "La balise <h1> est utilisée pour le plus grand titre dans HTML.",
     "multiQuestion" :true
   },
