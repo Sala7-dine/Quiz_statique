@@ -16,14 +16,16 @@ const themes = [
   }
 ];
 
-// Fonction utilitaire pour obtenir un thème par ID
+// obtenir un thème par ID
 function getThemeById(id) {
-    return themes.find(theme => theme.id == id);
+    return themes.find(theme => theme.id === id);
 }
+
 
 // Charger les parties depuis localStorage
 export function loadGames() {
     const games = localStorage.getItem('quizHistory');
+    // console.log(games);
     return games ? JSON.parse(games) : [];
 }
 
@@ -31,7 +33,7 @@ export function loadGames() {
 export function getAverageScoreByTheme() {
     const games = loadGames();
     return themes.map(theme => {
-        const themeGames = games.filter(game => game.theme == theme.id);
+        const themeGames = games.filter(game => game.theme === theme.id);
         
         if (themeGames.length === 0) {
             return {
@@ -60,12 +62,12 @@ export function getGamesCountByTheme() {
     return themes.map(theme => ({
         theme: theme.titre,
         themeId: theme.id,
-        count: games.filter(game => game.theme == theme.id).length,
+        count: games.filter(game => game.theme === theme.id).length,
         description: theme.description
     }));
 }
 
-// Obtenir le top 3 des joueurs en utilisant reduce et map
+// Obtenir le top 3 des joueurs
 export function getTopPlayers() {
     const games = loadGames();
     // Regrouper par pseudo avec reduce
@@ -86,7 +88,7 @@ export function getTopPlayers() {
         return acc;
     }, {});
 
-    // Convertir en tableau, calculer moyenne et trier
+    // calculer moyenne et trier
     return Object.values(playerStats)
         .map(player => ({
             ...player,
@@ -95,6 +97,8 @@ export function getTopPlayers() {
         .sort((a, b) => b.averageScore - a.averageScore)
         .slice(0, 3); // Top 3
 }
+
+console.log(getTopPlayers());
 
 // Obtenir les statistiques générales
 export function getGeneralStats() {
